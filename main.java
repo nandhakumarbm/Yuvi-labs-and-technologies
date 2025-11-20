@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class Main {
+public class main {
 
     static void align(String[][] arr, int n) 
     {
