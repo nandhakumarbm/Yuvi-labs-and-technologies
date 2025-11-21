@@ -1,0 +1,33 @@
+name: Compile and Run Java
+
+on:
+  workflow_dispatch:
+    inputs:
+      highlight:
+        description: 'Even number to highlight (2-20)'
+        required: true
+        default: '2'
+
+jobs:
+  run-java:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Compile
+        run: |
+          ls -la
+          javac main.java
+
+      - name: Run (non-interactive; supplies the number)
+        run: |
+          echo "Running program with highlight=${{ github.event.inputs.highlight }}"
+          # send the workflow input as stdin to the Java program
+          echo "${{ github.event.inputs.highlight }}" | java main
